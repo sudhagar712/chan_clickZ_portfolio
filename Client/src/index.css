@@ -127,3 +127,25 @@ img {
   }
 }
 
+/* Loading video responsive behavior */
+.loading-video {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100dvw;
+  height: 100dvh;
+  object-fit: cover;
+}
+
+/* On portrait mobile: use full height and auto width to show video vertically */
+@media (orientation: portrait) and (max-width: 900px) {
+  .loading-video {
+    left: 50%;
+    top: 0;
+    width: auto;
+    height: 100dvh;
+    transform: translateX(-50%);
+  }
+}
+

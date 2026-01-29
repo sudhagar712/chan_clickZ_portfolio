@@ -1,32 +1,44 @@
-import heroVideo from "../assets/Landscape_Video_Generation.mp4";
+import { useEffect, useRef } from "react";
+import heroVideo from "../assets/Animated_Effect_Video_Generated (1).mp4";
 
 const Loading = () => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video
+        .play()
+        .catch((err) => console.log("Video autoplay prevented:", err));
+    }
+  }, []);
+
   return (
-    <div 
-      className="fixed inset-0 z-[9999] flex items-end justify-center overflow-hidden pb-8 sm:pb-12 md:pb-16"
-    >
-      {/* Video Background */}
+    <div className="fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-hidden">
+      {/* Background Video */}
       <video
-        className="absolute inset-0 w-full h-full object-cover"
+        ref={videoRef}
+        className="
+          absolute 
+          top-1/2 left-1/2 
+          w-full h-full 
+          -translate-x-1/2 -translate-y-1/2 
+          object-fit 
+          md:object-cover
+        "
         autoPlay
-        muted
         loop
+        playsInline
+        preload="auto"
       >
         <source src={heroVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      {/* Overlay for better visibility */}
-      <div className="absolute inset-0 bg-black/40"></div>
-      
-      {/* Loading Effect at Bottom */}
-      <div className="relative z-10 flex items-center gap-2">
-        <div className="w-2 h-2 sm:w-3 sm:h-3 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0s', animationDuration: '0.6s' }}></div>
-        <div className="w-2 h-2 sm:w-3 sm:h-3 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s', animationDuration: '0.6s' }}></div>
-        <div className="w-2 h-2 sm:w-3 sm:h-3 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s', animationDuration: '0.6s' }}></div>
-      </div>
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/30"></div>
     </div>
   );
 };
 
 export default Loading;
-
